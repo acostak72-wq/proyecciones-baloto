@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuAzar.com | Portal Informativo de Tendencias Baloto</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7918726151133022" crossorigin="anonymous"></script>
+
+    <style>
+        :root { --azul: #0044cc; --rojo: #cc0000; --oro: #ffcc00; --gris: #f4f4f4; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--gris); margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        .container { background: white; max-width: 500px; width: 100%; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); box-sizing: border-box; }
+        .header { text-align: center; border-bottom: 3px solid var(--oro); margin-bottom: 20px; padding-bottom: 10px; }
+        .card { background: #fff; padding: 15px; border-radius: 15px; margin: 10px 0; border: 1px solid #eee; text-align: center; }
+        .balls { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+        .ball { width: 34px; height: 34px; background: #333; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; }
+        .special { background: var(--oro); color: #000; border: 1px solid #b8860b; }
+        .btn { width: 100%; padding: 16px; background: #1a1a1a; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; }
+        .wa { display: none; text-align: center; background: #25D366; color: white; text-decoration: none; padding: 12px; border-radius: 12px; margin-top: 10px; font-weight: bold; }
+        
+        /* MODAL LEGAL REFORZADO */
+        #legal-modal { display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-box { background: white; width: 90%; max-width: 450px; padding: 25px; border-radius: 25px; text-align: center; }
+        .legal-text { text-align: justify; font-size: 0.75rem; color: #333; background: #f4f4f4; padding: 15px; border-radius: 10px; margin: 15px 0; line-height: 1.5; border: 1px solid #ddd; }
+    </style>
+</head>
+<body onload="verificarLegal()">
+
+<div id="legal-modal">
+    <div class="modal-box">
+        <h3 style="color: var(--rojo);">CLÁUSULA DE EXENCIÓN DE RESPONSABILIDAD</h3>
+        <div class="legal-text">
+            <strong>TuAzar.com</strong> es un portal independiente de carácter <strong>MERAMENTE INFORMATIVO Y ESTADÍSTICO</strong>. 
+            <br><br>
+            Al acceder, usted declara comprender que:<br>
+            1. No somos operadores de juegos de suerte y azar. No recaudamos apuestas ni pagamos premios.<br>
+            2. El algoritmo de "sugerencias" genera combinaciones aleatorias sin valor contractual ni garantía de éxito comercial.<br>
+            3. El juego oficial en Colombia es operado exclusivamente por concesionarios autorizados por <strong>Coljuegos</strong>.<br>
+            4. Se prohíbe el uso de esta información a menores de edad (Ley 124 de 1994).<br><br>
+            <a href="https://www.coljuegos.gov.co/publicaciones/304192/juego-responsable/" target="_blank" style="color:blue;">Consulte aquí sobre Juego Responsable (Coljuegos)</a>
+        </div>
+        <button class="btn" onclick="aceptarCondiciones()">ACEPTO LAS CONDICIONES DE USO</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="header">
+        <h1 style="margin:0; font-size: 1.3rem;">🍀 TuAzar.com</h1>
+        <small id="fecha-label" style="color:#666;"></small>
+    </div>
+
+    <div class="card" style="border-top: 5px solid var(--azul);">
+        <strong>Sugerencia Estadística Baloto</strong>
+        <div id="out-b" class="balls">
+            <div class="ball">?</div><div class="ball">?</div><div class="ball">?</div><div class="ball">?</div><div class="ball">?</div><div class="ball special">?</div>
+        </div>
+    </div>
+
+    <div class="card" style="border-top: 5px solid var(--rojo);">
+        <strong>Sugerencia Estadística Revancha</strong>
+        <div id="out-r" class="balls">
+            <div class="ball">?</div><div class="ball">?</div><div class="ball">?</div><div class="ball">?</div><div class="ball">?</div><div class="ball special">?</div>
+        </div>
+    </div>
+
+    <button class="btn" onclick="generarSugerencia()">VER SUGERENCIA ALEATORIA</button>
+    <a id="btn-wa" class="wa" href="#">Compartir Referencia vía WhatsApp 📱</a>
+
+    <div style="margin-top:20px; padding:15px; background:#f9f9f9; border-radius:12px; font-size:0.8rem;">
+        <strong style="display:block; text-align:center; margin-bottom:10px;">📅 Datos Históricos Recientes</strong>
+        <p style="margin:5px 0; display:flex; justify-content:space-between;"><span>Baloto (01/02):</span> <strong>04-15-22-31-40 (08)</strong></p>
+        <p style="margin:5px 0; display:flex; justify-content:space-between;"><span>Revancha (01/02):</span> <strong>07-12-25-33-42 (14)</strong></p>
+    </div>
+
+    <p style="font-size:0.6rem; color:#999; text-align:center; margin-top:20px;">
+        Juegue con moderación. El juego responsable es una decisión personal. TuAzar.com no tiene relación alguna con IGT ni con los operadores oficiales de Baloto.
+    </p>
+</div>
+
+<script>
+    function verificarLegal() {
+        if(localStorage.getItem('legal_TuAzar')) document.getElementById('legal-modal').style.display = 'none';
+        setFecha();
+    }
+    function aceptarCondiciones() {
+        localStorage.setItem('legal_TuAzar', 'true');
+        document.getElementById('legal-modal').style.display = 'none';
+    }
+    let fS = "";
+    function setFecha() {
+        const d = new Date();
+        const dia = d.getDay();
+        let diff = (dia <= 3) ? (3 - dia) : (6 - dia);
+        if(diff < 0) diff = 3;
+        d.setDate(d.getDate() + diff);
+        fS = d.toLocaleDateString('es-CO', { weekday:'long', day:'numeric', month:'long' });
+        document.getElementById('fecha-label').innerText = "Proyección para: " + fS;
+    }
+    function generarSugerencia() {
+        const gen = () => {
+            let n = [];
+            while(n.length < 5) {
+                let r = Math.floor(Math.random()*43)+1;
+                if(!n.includes(r)) n.push(r);
+            }
+            return {nums: n.sort((a,b)=>a-b), sb: Math.floor(Math.random()*16)+1};
+        }
+        const draw = (id, data) => {
+            document.getElementById(id).innerHTML = data.nums.map(n => `<div class="ball">${n<10?'0'+n:n}</div>`).join('') + `<div class="ball special">${data.sb<10?'0'+data.sb:data.sb}</div>`;
+        }
+        const b = gen(), r = gen();
+        draw('out-b', b); draw('out-r', r);
+        const waMsg = `*SUGERENCIA INFORMATIVA TUAZAR.COM*%0A📅 Referencia sorteo: ${fS}%0A%0A🔵 Baloto: ${b.nums.join('-')} [${b.sb}]%0A🔴 Revancha: ${r.nums.join('-')} [${r.sb}]%0A%0A_Nota: Uso estadístico no vinculante._`;
+        const btn = document.getElementById('btn-wa');
+        btn.href = "https://wa.me/?text=" + waMsg;
+        btn.style.display = 'block';
+    }
+</script>
+</body>
+</html>
