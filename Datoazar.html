@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DatoAzar Col | Análisis Térmico Informativo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --deep-blue: #0f172a;
+            --gold: #f59e0b;
+            --silver: #94a3b8;
+            --accent: #4ade80;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body { 
+            font-family: 'Lexend', sans-serif; 
+            background: var(--deep-blue); 
+            color: white; margin: 0; padding: 15px;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 450px; width: 100%;
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 1) 100%);
+            border-radius: 30px; padding: 25px;
+            border: 1px solid var(--border);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h1 { font-size: 1.6rem; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .header span { color: var(--gold); }
+        .tagline { font-size: 0.75rem; color: var(--silver); margin-top: 5px; }
+
+        .terminal {
+            background: #000; border-radius: 12px; padding: 12px;
+            font-family: monospace; font-size: 0.75rem; color: var(--accent);
+            margin-bottom: 20px; border: 1px solid #166534;
+            min-height: 1.2rem;
+        }
+
+        .card {
+            background: var(--glass); border-radius: 20px; padding: 20px;
+            margin-bottom: 15px; border: 1px solid var(--border);
+            transition: 0.3s; cursor: pointer;
+        }
+        .card:hover { border-color: var(--gold); background: rgba(255,255,255,0.05); }
+        .card-title { font-size: 0.65rem; font-weight: 800; color: var(--silver); margin-bottom: 15px; display: flex; justify-content: space-between; }
+        .card-title span { color: var(--gold); font-size: 0.55rem; }
+
+        .ball-grid { display: flex; justify-content: space-between; gap: 5px; }
+        .ball {
+            width: 42px; height: 42px; border-radius: 50%;
+            background: #1e293b; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1rem; color: var(--silver);
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.3);
+        }
+        .ball.active { background: white; color: var(--deep-blue); animation: pop 0.3s ease-out forwards; }
+        .ball.super { background: var(--gold); color: var(--deep-blue); }
+
+        @keyframes pop { 0% { transform: scale(0.5); } 100% { transform: scale(1); } }
+
+        .terms-box {
+            background: rgba(245, 158, 11, 0.05);
+            border: 1px dashed var(--gold);
+            border-radius: 15px; padding: 15px; margin-bottom: 20px;
+            display: flex; gap: 12px; align-items: flex-start;
+        }
+        .terms-box input { width: 22px; height: 22px; cursor: pointer; accent-color: var(--gold); margin-top: 2px; }
+        .terms-text { font-size: 0.68rem; color: var(--silver); line-height: 1.4; }
+
+        .btn {
+            width: 100%; padding: 18px; border-radius: 15px; border: none;
+            background: var(--gold); color: var(--deep-blue);
+            font-weight: 800; font-size: 0.9rem; cursor: pointer;
+            text-transform: uppercase; transition: 0.3s;
+        }
+        .btn:disabled { background: #475569; color: #94a3b8; cursor: not-allowed; opacity: 0.5; }
+
+        .footer-legal {
+            margin-top: 25px; font-size: 0.6rem; color: #64748b;
+            text-align: center; line-height: 1.4; padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Dato<span>Azar</span> Col</h1>
+        <div class="tagline">Análisis de Frecuencias e Inteligencia Numérica</div>
+    </div>
+
+    <div class="terminal" id="term">ESPERANDO ACEPTACIÓN DE CONDICIONES...</div>
+
+    <div class="card" onclick="copy('gridA')">
+        <div class="card-title">SUGERENCIA A (Análisis Caliente) <span>TOCAR PARA COPIAR</span></div>
+        <div class="ball-grid" id="gridA">
+            <div class="ball">-</div><div class="ball">-</div><div class="ball">-</div><div class="ball">-</div><div class="ball">-</div><div class="ball super">-</div>
+        </div>
+    </div>
+
+    <div class="card" onclick="copy('gridB')">
+        <div class="card-title">SUGERENCIA B (Análisis Balanceado) <span>TOCAR PARA COPIAR</span></div>
+        <div class="ball-grid" id="gridB">
+            <div class="ball">-</div><div class="ball">-</div><div class="ball">-</div><div class="ball">-</div><div class="ball">-</div><div class="ball super">-</div>
+        </div>
+    </div>
+
+    <div class="terms-box">
+        <input type="checkbox" id="chkTerms" onchange="toggleBtn()">
+        <label for="chkTerms" class="terms-text">
+            Acepto los términos y condiciones. Entiendo que <strong>DatoAzar</strong> es una herramienta de <strong>uso informativo</strong> y recreativo. El nombre Baloto® se utiliza bajo propósito informativo y no existe vínculo oficial con su operador.
+        </label>
+    </div>
+
+    <button class="btn" id="btnMain" onclick="generar()" disabled>Calcular Números</button>
+
+    <div class="footer-legal">
+        <strong>IMPORTANTE:</strong> Este simulador es de <strong>uso informativo</strong>. Baloto® y Revancha® son marcas registradas de sus respectivos dueños. No somos un sitio de apuestas ni garantizamos premios.
+    </div>
+</div>
+
+<script>
+    /* Lógica Consolidada */
+    const hotPool = [1, 5, 8, 14, 21, 29, 32, 33, 40, 42];
+    const coldPool = [2, 7, 10, 17, 25, 30, 31, 38, 39, 43];
+
+    function toggleBtn() {
+        const isChecked = document.getElementById('chkTerms').checked;
+        const btn = document.getElementById('btnMain');
+        const term = document.getElementById('term');
+        btn.disabled = !isChecked;
+        term.innerText = isChecked ? "> DATOAZAR: SISTEMA ANALÍTICO LISTO" : "ESPERANDO ACEPTACIÓN DE CONDICIONES...";
+    }
+
+    function generar() {
+        const term = document.getElementById('term');
+        const btn = document.getElementById('btnMain');
+        btn.disabled = true;
+        term.innerText = "> Analizando balotas calientes y frías...";
+        
+        setTimeout(() => {
+            fillGrid('gridA', 'hot');
+            setTimeout(() => {
+                fillGrid('gridB', 'balance');
+                term.innerText = "> Sugerencias DatoAzar generadas (Uso Informativo).";
+                btn.disabled = false;
+            }, 600);
+        }, 600);
+    }
+
+    function fillGrid(id, mode) {
+        const container = document.getElementById(id);
+        let selection = [];
+        let pool = (mode === 'hot') ? hotPool : coldPool;
+
+        // Seleccionar 3 de la base térmica
+        while(selection.length < 3) {
+            let r = pool[Math.floor(Math.random() * pool.length)];
+            if(!selection.includes(r)) selection.push(r);
+        }
+        // Completar a 5 con azar total
+        while(selection.length < 5) {
+            let r = Math.floor(Math.random() * 43) + 1;
+            if(!selection.includes(r)) selection.push(r);
+        }
+
+        selection.sort((a,b) => a - b);
+        let superB = Math.floor(Math.random() * 16) + 1;
+
+        container.innerHTML = '';
+        selection.forEach((n, i) => {
+            const b = document.createElement('div');
+            b.className = 'ball active';
+            b.style.animationDelay = (i * 0.1) + 's';
+            b.innerText = n;
+            container.appendChild(b);
+        });
+
+        const sb = document.createElement('div');
+        sb.className = 'ball active super';
+        sb.style.animationDelay = '0.6s';
+        sb.innerText = superB;
+        container.appendChild(sb);
+    }
+
+    async function copy(id) {
+        const balls = document.querySelectorAll(`#${id} .ball`);
+        const text = Array.from(balls).map(b => b.innerText).join(' - ');
+        if(text.includes('-')) return;
+
+        try {
+            await navigator.clipboard.writeText(text);
+            document.getElementById('term').innerText = "> COPIADO AL PORTAPAPELES: " + text;
+        } catch (err) {
+            alert("Combinación: " + text);
+        }
+    }
+</script>
+
+</body>
+</html>
